@@ -1,6 +1,6 @@
-const { servicesFindAll, servicesFindBiId } = require('./productsServices');
+const { servicesFindAll, servicesFindById } = require('./productsServices');
 
 module.exports = {
   servicesFindAll,
-  servicesFindBiId,
+  servicesFindById,
 };
