@@ -7,6 +7,9 @@ const servicesFindAll = async () => {
 
 const servicesFindBiId = async ({ id }) => {
   const productById = await products.findById(id);
+
+  if (!productById) { return { type: 404, messenger: '"Product not found"' }; }
+
   return { type: null, messenger: productById };
 };
 
