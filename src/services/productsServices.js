@@ -18,7 +18,9 @@ const insertProduct = async (name) => {
   const validationNameResult = validateNameProduct(name);
   if (validationNameResult.type) return validationNameResult; 
   
-  const newProduct = await products.insert(name);
+  const idNewProduct = await products.insert(name);
+  const newProduct = await products.findById(idNewProduct);
+  
   return { type: null, message: newProduct };
 };
 

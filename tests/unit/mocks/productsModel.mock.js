@@ -4,9 +4,12 @@ const getAllMock = [
   { id: 3, name: 'Escudo do Capitão América' }
 ]
 
-const getByIdMock =  { id: 1, name: 'Martelo de Thor' };
+const getByIdMock = { id: 1, name: 'Martelo de Thor' };
+
+const insertMock = { id: 4, name: 'Geloww' };
 
 module.exports = {
   getAllMock,
   getByIdMock,  
+  insertMock,
 }

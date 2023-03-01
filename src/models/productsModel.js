@@ -22,7 +22,7 @@ const insert = async (name) => {
   );
   if (!insertId) { return undefined; }
 
-  return findById(insertId);
+  return insertId;
 };
 
 module.exports = {
