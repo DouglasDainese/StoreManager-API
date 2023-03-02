@@ -4,6 +4,10 @@ const { validateSalesParams } = require('../middlewares');
 
 const router = express.Router();
 
+router.get('/', salesController.findSalesController);
+
+router.get('/:id', salesController.findSalesController);
+
 router.post('/', validateSalesParams, salesController.insertsSales);
 
 module.exports = router;
