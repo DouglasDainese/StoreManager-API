@@ -42,7 +42,9 @@ const insertSalesProducts = async (saleId, { productId, quantity }) => {
 
 const getSalesById = async (salesId) => {
    const [result] = await connection.execute(
-    'SELECT product_id, quantity FROM StoreManager.sales_products WHERE sale_id = ?;',
+     `SELECT product_id, quantity 
+      FROM StoreManager.sales_products WHERE sale_id = ?
+      ORDER BY product_id;`,
     [salesId],
    );
   
