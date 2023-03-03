@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const { sales } = require('../../../src/models')
+const sales  = require('../../../src/models/salesModel')
 const salesServices = require('../../../src/services');
 
 const mock = require('../mocks/salesModel.mock');
@@ -11,6 +11,7 @@ describe('Testes de unidade da camada services do endpoint /sales', function () 
     sinon.stub(sales, 'getAllSales').resolves(mock.allSalesMock);
   
     const getAllsales = await salesServices.findSalesService({});
+    //teste
 
     expect(getAllsales).to.be.deep.equal( { type: null, message: mock.allSalesMock }  );
   });
