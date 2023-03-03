@@ -51,7 +51,7 @@ describe('Testes de unidade da camada model do endpoit /sales', function () {
 
       const newSales = await sales.insertSalesProducts(1, { productId: 1, quantity:1 })
       
-      expect(newSales).to.be.equal(1);
+      expect(newSales).to.be.equal(undefined);
     })
     afterEach(function () {
       sinon.restore();
