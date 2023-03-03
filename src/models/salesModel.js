@@ -29,16 +29,19 @@ const registerNewSales = async () => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales (date) VALUE (NOW());',
   );
+
   return insertId;
 };
 
 const insertSalesProducts = async (saleId, { productId, quantity }) => {
-  const [{ insertId }] = await connection.execute(
+  const [{ affectedRows }] = await connection.execute(
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?);',
     [saleId, productId, quantity],
   );
-  return insertId;
+  return affectedRows;
 }; 
+
+insertSalesProducts(1, { productId: 1, quantity: 1 });
 
 const getSalesById = async (salesId) => {
    const [result] = await connection.execute(
