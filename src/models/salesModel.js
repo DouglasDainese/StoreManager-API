@@ -41,8 +41,6 @@ const insertSalesProducts = async (saleId, { productId, quantity }) => {
   return insertId;
 }; 
 
-insertSalesProducts(1, { productId: 1, quantity: 1 });
-
 const getSalesById = async (salesId) => {
    const [result] = await connection.execute(
      `SELECT product_id, quantity 
