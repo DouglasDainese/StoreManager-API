@@ -3,25 +3,25 @@ const sinon = require('sinon');
 const { sales } = require('../../../src/models')
 const salesServices = require('../../../src/services');
 
-const { allSalesMock, saleId1 } = require('../mocks/salesModel.mock');
+const mock = require('../mocks/salesModel.mock');
 
 describe('Testes de unidade da camada services do endpoint /sales', function () {
   it('Recuperando a lista de todos as vendas', async function () {
 
-    sinon.stub(sales, 'getAllSales').resolves(allSalesMock);
+    sinon.stub(sales, 'getAllSales').resolves(mock.allSalesMock);
   
     const getAllsales = await salesServices.findSalesService({});
 
-    expect(getAllsales).to.be.deep.equal( { type: null, message: allSalesMock }  );
+    expect(getAllsales).to.be.deep.equal( { type: null, message: mock.allSalesMock }  );
   });
 
   it('Recuperando uma venda por id', async function () {
 
-    sinon.stub(sales, 'getAllSalesById').resolves(saleId1);
+    sinon.stub(sales, 'getAllSalesById').resolves(mock.saleId1);
   
     const getAllSalesById = await salesServices.findSalesService({id:1});
 
-    expect(getAllSalesById).to.be.deep.equal({ type: null, message: saleId1 });
+    expect(getAllSalesById).to.be.deep.equal({ type: null, message: mock.saleId1 });
   });
 
   // it('Verifica se retorna um erro caso Id não exista', async function () {

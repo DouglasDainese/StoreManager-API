@@ -2,34 +2,34 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { sales } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
-const { allSalesMock, saleById, saleByIdReturn, allSaleById } = require('../mocks/salesModel.mock');
+const mock = require('../mocks/salesModel.mock');
 
 describe('Testes de unidade da camada model do endpoit /sales', function () {
 
   describe('Testes de busca da camada model do endpoit /sales', function () {
     it('Recuperando a lista de todos as vendas', async function () {
       // Arrange
-      sinon.stub(connection, 'execute').resolves([allSalesMock]);
+      sinon.stub(connection, 'execute').resolves([mock.allSalesMock]);
       // Act
       const getAllSales = await sales.getAllSales();
       // Assert
-      expect(getAllSales).to.be.deep.equal(allSalesMock);
+      expect(getAllSales).to.be.deep.equal(mock.allSalesMock);
     });
 
     it('Recuperando uma nova venda pelo id', async function () {
-      sinon.stub(connection, "execute").resolves([saleById]);
+      sinon.stub(connection, "execute").resolves([mock.saleById]);
 
       const sale1 = await sales.getSalesById(1);
 
-      expect(sale1).to.be.deep.equal(saleByIdReturn);
+      expect(sale1).to.be.deep.equal(mock.saleByIdReturn);
     });
 
      it('Recuperando todas as venda por um id', async function () {
-      sinon.stub(connection, "execute").resolves([allSaleById]);
+      sinon.stub(connection, "execute").resolves([mock.allSaleById]);
 
       const sale = await sales.getAllSalesById(1);
 
-      expect(sale).to.be.deep.equal(allSaleById);
+      expect(sale).to.be.deep.equal(mock.allSaleById);
     });
 
     afterEach(function () {
