@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const { products } = require('../../../src/models');
 
 const connection = require('../../../src/models/connection');
-const { getAllMock, getByIdMock, insertMock } = require('../mocks/productsModel.mock');
+const { getAllMock, getByIdMock } = require('../mocks/productsModel.mock');
 
 describe('Testes de unidade da camada model do endpoit /produtos',async  function () {
   it('Recuperando a lista de todos os produtos', async function () {
@@ -28,7 +28,6 @@ describe('Testes de unidade da camada model do endpoit /produtos',async  functio
     sinon.stub(connection, 'execute').resolves([[1]]);
     // Act
     const getProductById = await products.insert("NoteBook Dell");
-    console.log(getProductById);
     // Assert
     expect(getProductById).to.be.equal(undefined);
   });
