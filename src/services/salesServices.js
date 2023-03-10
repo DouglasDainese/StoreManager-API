@@ -26,7 +26,19 @@ const insertSales = async (itensSold) => {
   return { type: null, message: result }; 
 };
 
+const deleteSalesService = async (id) => {
+  const checkSale = await sales.findSaleById(id);
+  
+  console.log(checkSale);
+
+  if (checkSale === undefined) return { type: 404, message: 'Sale not found' };
+
+  await sales.deleteSales(id);
+  return { type: null, message: null };
+};
+
 module.exports = {
   insertSales,
   findSalesService,
+  deleteSalesService,
 };

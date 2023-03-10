@@ -55,10 +55,27 @@ const getSalesById = async (salesId) => {
   };
 };
 
+const findSaleById = async (id) => {
+    const [[result]] = await connection.execute(
+     'SELECT * FROM StoreManager.sales WHERE id = ?',
+    [id],
+  );
+  return result;
+};
+
+const deleteSales = async (saleId) => {
+  await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?',
+    [saleId],
+  );
+};
+
 module.exports = {
   registerNewSales,
   insertSalesProducts,
   getAllSales,
   getAllSalesById,
   getSalesById,
+  deleteSales,
+  findSaleById,
 };

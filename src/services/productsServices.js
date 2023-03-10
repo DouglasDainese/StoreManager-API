@@ -38,7 +38,6 @@ const updateProductService = async ({ id, name }) => {
 
 const deleteProductService = async (id) => {
   const checkProduct = await products.findById(id);
-  console.log(checkProduct);
 
   if (checkProduct === undefined) return { type: 404, message: 'Product not found' };
 
