@@ -37,8 +37,27 @@ const deleteSalesService = async (id) => {
   return { type: null, message: null };
 };
 
+const updateSalesService = async (id, itemsUpdated) => {
+  const inputsSales = salesInputs(itemsUpdated);
+  if (inputsSales.type) return inputsSales; 
+  
+  const checkSalebById = await sales.findSaleById(id);
+  if (checkSalebById === undefined) return { type: 404, message: 'Sale not found' };
+
+  const checkProductInDb = await checkContainProduct(itemsUpdated);
+  if (checkProductInDb.type) return checkProductInDb;
+  
+  await Promise.all(itemsUpdated.map((sale) =>
+    sales.updateSales({ saleId: id, productId: sale.productId, quantity: sale.quantity })));
+
+  const result = await sales.getSalesById(id);
+
+  return { type: null, message: { saleId: Number(result.id), itemsUpdated: result.itemsSold } }; 
+};
+
 module.exports = {
   insertSales,
   findSalesService,
   deleteSalesService,
+  updateSalesService,
 };
