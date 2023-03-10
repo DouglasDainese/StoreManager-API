@@ -3,6 +3,7 @@ const {
   servicesFindById,
   insertProduct,
   updateProductService,
+  deleteProductService,
 } = require('./productsServices');
 const { insertSales, findSalesService } = require('./salesServices');
 
@@ -13,4 +14,5 @@ module.exports = {
   insertSales,
   findSalesService,
   updateProductService,
+  deleteProductService,
 };
