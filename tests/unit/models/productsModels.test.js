@@ -25,12 +25,22 @@ describe('Testes de unidade da camada model do endpoit /produtos',async  functio
   });
   it('Inserindo um novo produto', async function () {
     // Arrange
-    sinon.stub(connection, 'execute').resolves([[1]]);
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
     // Act
     const getProductById = await products.insert("NoteBook Dell");
     // Assert
-    expect(getProductById).to.be.equal(undefined);
+    expect(getProductById).to.be.equal(1);
   });
+  it('Atualizando um produto', async function () {
+   
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const productUpdate = {id: 1, name: 'NoteBook Dell'}
+    
+    const result = await products.update(productUpdate);
+    
+    expect(result).to.be.equal(1);
+  });
+  
 
   afterEach(function () {
     sinon.restore();

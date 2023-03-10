@@ -12,7 +12,6 @@ const findById = async (productId) => {
     'SELECT * FROM products WHERE id = ?;',
     [productId],
   );
-
   return result;
 };
 
@@ -21,13 +20,21 @@ const insert = async (name) => {
     'INSERT INTO StoreManager.products (name) VALUE (?)',
     [name],
   );
-  if (!insertId) { return undefined; }
-
   return insertId;
+};
+
+const update = async ({ id, name }) => {
+  const [{ affectedRows }] = await connection.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id = ?',
+    [name, id],
+  );
+
+  return affectedRows;
 };
 
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };

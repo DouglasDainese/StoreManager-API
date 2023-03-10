@@ -24,8 +24,21 @@ const insertProduct = async (name) => {
   return { type: null, message: newProduct };
 };
 
+const updateProductService = async ({ id, name }) => {
+  const validationNameResult = validateNameProduct(name);
+  if (validationNameResult.type) return validationNameResult; 
+
+  await products.update({ id, name });
+  const productUpdate = await products.findById(id);
+
+  if (productUpdate === undefined) return { type: 404, message: 'Product not found' };
+
+  return { type: null, message: productUpdate };
+};
+
 module.exports = {
   servicesFindAll,
   servicesFindById,
   insertProduct,
+  updateProductService,
 };
