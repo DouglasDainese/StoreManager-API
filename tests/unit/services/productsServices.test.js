@@ -44,7 +44,7 @@ describe('Testes de unidade da camada services do endpoint /produtos', function 
   
     const getProductsById = await services.updateProductService(updateProduct);
 
-    expect(getProductsById).to.be.deep.equal({ type: 200, message: updateProduct });
+    expect(getProductsById).to.be.deep.equal({ type: null, message: updateProduct });
   });
   it('Verifica se vem uma mensagem de erro ao atualizar um produto que não existe', async function () {
 
@@ -52,7 +52,7 @@ describe('Testes de unidade da camada services do endpoint /produtos', function 
     sinon.stub(products, 'update').resolves(undefined);
     sinon.stub(products, 'findById').resolves(undefined)
   
-    const getProductsById = await services.updateProductService(99);
+    const getProductsById = await services.updateProductService({id: 99, name: 'Celular'});
 
     expect(getProductsById).to.be.deep.equal(objErro);
   });

@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const services = require('../../../src/services');
 const { productsController } = require('../../../src/controllers');
 
-const { getAllMock, getByIdMock } = require('../mocks/productsModel.mock');
+const { getAllMock, getByIdMock, updateProductMock } = require('../mocks/productsModel.mock');
 
 describe('Testes de unidade da camada controllers do endpoint /produtos', function () {
   
@@ -67,6 +67,47 @@ describe('Testes de unidade da camada controllers do endpoint /produtos', functi
         .resolves({ type: 404, message: 'Product not found' });
 
       await productsController.getByIdProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
+  describe('Atualizando um produto', function () {
+    it('Deve retornar o status 200 e o produto atualizado', async function () {
+
+      const res = {};
+      const req = { params: {id:1}, body: {name: 'Balanço'}};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'updateProductService')
+        .resolves({ type: null, message: updateProductMock });
+
+      await productsController.updateProductController(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(updateProductMock);
+
+    });
+
+    it('Deve retornar o status 404 e a mensagem: "Product not found" quando um for id inexistente', async function () {
+
+      const res = {};
+      const req = { params: { id: 99 }, body: { name: 'Balanço' } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'updateProductService')
+        .resolves({ type: 404, message: 'Product not found' });
+
+      await productsController.updateProductController(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
