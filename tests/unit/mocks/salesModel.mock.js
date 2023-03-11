@@ -107,5 +107,5 @@ module.exports = {
   allSalesMock,
   saleId1,
   saleByIdMock,
-  reqNewSale
+  reqNewSale,
 }

@@ -58,5 +58,46 @@ describe('Testes de unidade da camada controllers do endpoint /sales', function 
       sinon.restore();
     });
   });
+  describe('Deletando uma venda', function () {
+    it('Deve retornar o status 204', async function () {
+
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'deleteSalesService')
+        .resolves({ type: null, message: null });
+
+      await salesController.deleteSales(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith();
+
+    });
+    it(`Se a venda for inexistente o resultado retornado deverá ser
+     conforme exibido abaixo, com um status http 404`, async function () {
+
+      const res = {};
+      const req = { params: { id: 99 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'deleteSalesService')
+        .resolves({ type: 404, message: 'Sale not found' });
+
+      await salesController.deleteSales(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({message: 'Sale not found' });
+
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
 
 });
