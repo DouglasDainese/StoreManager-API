@@ -30,6 +30,13 @@ describe('Testes de unidade da camada model do endpoit /sales', function () {
       const sale = await sales.getAllSalesById(1);
 
       expect(sale).to.be.deep.equal(mock.allSaleById);
+     });
+    it('Recuperando uma venda por um id', async function () {
+      sinon.stub(connection, "execute").resolves([[mock.saleByIdMock]]);
+
+      const sale = await sales.findSaleById(1);
+
+      expect(sale).to.be.deep.equal(mock.saleByIdMock);
     });
 
     afterEach(function () {
@@ -47,14 +54,38 @@ describe('Testes de unidade da camada model do endpoit /sales', function () {
     });
 
     it('Inserindo produtos de uma nova venda no banco de dados', async function () {
-      sinon.stub(connection, 'execute').resolves([{ affectedRows : 1 }]);
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
 
-      const newSales = await sales.insertSalesProducts(1, { productId: 1, quantity:1 })
+      const newSales = await sales.insertSalesProducts(1, { productId: 1, quantity: 1 })
       
       expect(newSales).to.be.equal(undefined);
     })
     afterEach(function () {
       sinon.restore();
     });
-  } )
+  });
+  describe('Teste se é possivel deletar uma venda na camada "model"', async function () {
+  
+    it('Deletando uma venda no banco de dados', async function () {
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      const deleteSales = await sales.deleteSales(1)
+      
+      expect(deleteSales).to.be.equal(1);
+    })
+  });
+  describe('Teste se é possivel atualizar uma venda na camada "model"', async function () {
+  
+    it('atualizando uma venda no banco de dados', async function () {
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      const updateSales = await sales.updateSales({ saleId: 1, productId: 1, quantity: 2 })
+      
+      expect(updateSales).to.be.equal(1);
+    });
+  });
+
+  afterEach(function () {
+      sinon.restore();
+    });
 });

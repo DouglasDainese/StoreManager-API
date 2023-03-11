@@ -8,7 +8,7 @@ const findSalesService = async ({ id }) => {
   }
   const sale = await sales.getAllSalesById(id);
   if (!sale.length > 0) return { type: 404, message: 'Sale not found' };
-
+  
   return { type: null, message: sale };
 };
 

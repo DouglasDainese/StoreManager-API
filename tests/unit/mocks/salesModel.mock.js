@@ -84,11 +84,28 @@ const saleId1 = [
   { date: "2023-03-03T17:11:41.000Z", productId: 2, quantity: 10 }
 ];
 
+const saleByIdMock = { id: 1, date: '2023-03-11T00:49:47.000Z' };
+
+const reqNewSale = {
+  body: [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 5
+    }
+  ]
+};
+
 module.exports = {
   allSalesMock,
   saleById,
   saleByIdReturn,
   allSaleById,
   allSalesMock,
-  saleId1
+  saleId1,
+  saleByIdMock,
+  reqNewSale
 }
