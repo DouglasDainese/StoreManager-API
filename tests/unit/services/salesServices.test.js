@@ -25,15 +25,17 @@ describe('Testes de unidade da camada services do endpoint /sales', function () 
     expect(getAllSalesById).to.be.deep.equal({ type: null, message: mock.saleId1 });
   });
 
-  // it('Verifica se retorna um erro caso Id não exista', async function () {
+  it('Verifica se é possivel inserir uma nova venda', async function () {
 
-  //   const objErro = { type: 404, message: 'Product not found' };
-  //   sinon.stub(sales, 'findById').resolves(undefined);
+    const objReturn = { type: null, message: mock.saleByIdReturn };
+    sinon.stub(sales, 'registerNewSales').resolves(5)
+    sinon.stub(sales, 'insertSalesProducts').resolves(1);
+    sinon.stub(sales, "getSalesById").resolves(mock.saleByIdReturn)
   
-  //   const getsalesById = await servicesFindById(99);
+    const insertNewSales = await salesServices.insertSales([{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }]);
 
-  //   expect(getsalesById).to.be.deep.equal(objErro);
-  // });
+    expect(insertNewSales).to.be.deep.equal(objReturn);
+  });
 
   afterEach(function () {
     sinon.restore();
