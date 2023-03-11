@@ -118,5 +118,74 @@ describe('Testes de unidade da camada controllers do endpoint /produtos', functi
       sinon.restore();
     });
   });
+  describe('Inserindo um produto', function () {
+    it('Deve retornar o status 201 e o produto cadastrado', async function () {
+      const newProduct = updateProductMock;
+      const res = {};
+      const req = { body: {name: 'Balanço'}};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'insertProduct')
+        .resolves({ type: null, message: newProduct });
+
+      await productsController.insertNewProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(newProduct);
+
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
+  describe('deletando um produto', function () {
+    it('Deve retornar o status 204', async function () {
+      
+      const res = {};
+      const req = { params: {id: 1}};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'deleteProductService')
+        .resolves({ type: null, message: null });
+
+      await productsController.deleteProductController(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith();
+
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
+  describe('Pesquisando um produto pelo nome', function () {
+    it('Deve retornar o status 200', async function () {
+      
+      const res = {};
+      const req = { query: {q: "cel"}};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(services, 'searchProduct')
+        .resolves({ type: null, message: { id: 5, name: 'Celular' } });
+
+      await productsController.searchProductController(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith({ id: 5, name: 'Celular' });
+
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
 
 });

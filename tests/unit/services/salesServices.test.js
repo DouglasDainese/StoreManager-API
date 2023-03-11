@@ -10,7 +10,7 @@ describe('Testes de unidade da camada services do endpoint /sales', function () 
 
     sinon.stub(sales, 'getAllSales').resolves(mock.allSalesMock);
   
-    const getAllsales = await salesServices.findSalesService({});
+    const getAllsales = await salesServices.findAllSalesService({});
     //teste
 
     expect(getAllsales).to.be.deep.equal( { type: null, message: mock.allSalesMock }  );
@@ -20,7 +20,7 @@ describe('Testes de unidade da camada services do endpoint /sales', function () 
 
     sinon.stub(sales, 'getAllSalesById').resolves(mock.saleId1);
   
-    const getAllSalesById = await salesServices.findSalesService({id:1});
+    const getAllSalesById = await salesServices.findSaleByIdService({id:1});
 
     expect(getAllSalesById).to.be.deep.equal({ type: null, message: mock.saleId1 });
   });
@@ -36,6 +36,26 @@ describe('Testes de unidade da camada services do endpoint /sales', function () 
 
     expect(insertNewSales).to.be.deep.equal(objReturn);
   });
+  it('Verifica se é possivel atualizar uma venda', async function () {
+
+    const objReturn = { type: null, message: mock.saleByIdReturn };
+    sinon.stub(sales, 'findSaleById').resolves(1)
+    sinon.stub(sales, 'updateSales').resolves(1);
+    sinon.stub(sales, "getSalesById").resolves(mock.saleByIdReturn)
+  
+    const insertNewSales = await salesServices.updateSalesService(1, [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }]);
+
+    expect(insertNewSales).to.be.deep.equal({ type: null, message: mock.saleByUpdateMock });
+  });
+  it('Verifica se é possivel deletar uma venda', async function () {
+
+    sinon.stub(sales, "findSaleById").resolves(1)
+  
+    const deleteSales = await salesServices.deleteSalesService(1);
+
+    expect(deleteSales).to.be.deep.equal({ type: null, message: null });
+  });
+
 
   afterEach(function () {
     sinon.restore();

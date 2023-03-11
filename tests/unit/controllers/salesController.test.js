@@ -21,10 +21,10 @@ describe('Testes de unidade da camada controllers do endpoint /sales', function 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
       sinon
-        .stub(services, 'findSalesService')
+        .stub(services, 'findAllSalesService')
         .resolves({ type: null, message: saleId1 });
 
-      await salesController.findSalesController(req, res);
+      await salesController.findAllSalesController(req, res);
 
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(saleId1);

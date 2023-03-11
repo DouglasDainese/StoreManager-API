@@ -99,6 +99,11 @@ const reqNewSale = {
   ]
 };
 
+const saleByUpdateMock = {
+  saleId: 1,
+  itemsUpdated: [{ productId: 1, quantity: 5 }, { productId: 2, quantity: 10 }]
+};
+
 module.exports = {
   allSalesMock,
   saleById,
@@ -108,4 +113,5 @@ module.exports = {
   saleId1,
   saleByIdMock,
   reqNewSale,
+  saleByUpdateMock,
 }

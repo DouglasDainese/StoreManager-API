@@ -1,8 +1,15 @@
 const saleService = require('../services');
 
-const findSalesController = async (req, res) => {
+const findSaleByIdController = async (req, res) => {
   const id = req.params;
-  const { type, message } = await saleService.findSalesService(id);
+  const { type, message } = await saleService.findSaleByIdService(id);
+  if (type) return res.status(type).json({ message });
+  
+  return res.status(200).json(message);
+};
+
+const findAllSalesController = async (_req, res) => {
+  const { type, message } = await saleService.findAllSalesService();
   if (type) return res.status(type).json({ message });
   
   return res.status(200).json(message);
@@ -35,7 +42,8 @@ const updateSalesController = async (req, res) => {
 
 module.exports = {
   insertsSales,
-  findSalesController,
+  findSaleByIdController,
+  findAllSalesController,
   deleteSales,
   updateSalesController,
 };

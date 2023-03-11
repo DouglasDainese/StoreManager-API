@@ -56,6 +56,35 @@ describe('Testes de unidade da camada services do endpoint /produtos', function 
 
     expect(getProductsById).to.be.deep.equal(objErro);
   });
+  it('Verifica se é possivel inserir um novo produto', async function () {
+
+    const objReturn = { type: null, message: { id: 5, name: 'Celular' } };
+    sinon.stub(products, 'insert').resolves(5);
+    sinon.stub(products, 'findById').resolves({ id: 5, name: 'Celular' })
+  
+    const newProduct= await services.insertProduct('Celular');
+
+    expect(newProduct).to.be.deep.equal(objReturn);
+  });
+  it('Verifica se é possivel deletar um produto pelo id', async function () {
+
+    const objReturn = { type: null, message: null };
+    sinon.stub(products, 'findById').resolves(5);
+    sinon.stub(products, 'deleteProduct').resolves(1)
+  
+    const product = await services.deleteProductService(5);
+
+    expect(product).to.be.deep.equal(objReturn);
+  });
+  it('Verifica se é possivel perquisar um produto pelo nome', async function () {
+
+    const objReturn = { type: null, message: { id: 5, name: 'Celular' } };
+    sinon.stub(products, 'searchByName').resolves({ id: 5, name: 'Celular' });
+  
+    const product= await services.searchProduct('cel');
+
+    expect(product).to.be.deep.equal(objReturn);
+  })
 
   afterEach(function () {
     sinon.restore();

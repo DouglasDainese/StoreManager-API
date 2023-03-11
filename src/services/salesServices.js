@@ -1,15 +1,16 @@
 const { sales } = require('../models');
 const { salesInputs, checkContainProduct } = require('./validations/validationsInputValues');
 
-const findSalesService = async ({ id }) => {
-  if (!id) {
-    const salesAll = await sales.getAllSales();
-    return { type: null, message: salesAll };
-  }
+const findSaleByIdService = async ({ id }) => {
   const sale = await sales.getAllSalesById(id);
-  if (!sale.length > 0) return { type: 404, message: 'Sale not found' };
+  if (sale.length === 0) return { type: 404, message: 'Sale not found' };
 
   return { type: null, message: sale };
+};
+
+const findAllSalesService = async () => {
+    const salesAll = await sales.getAllSales();
+    return { type: null, message: salesAll };
 };
 
 const insertSales = async (itensSold) => {
@@ -50,12 +51,14 @@ const updateSalesService = async (id, itemsUpdated) => {
 
   const result = await sales.getSalesById(id);
 
-  return { type: null, message: { saleId: Number(result.id), itemsUpdated: result.itemsSold } }; 
+  const retorno = { saleId: Number(result.id), itemsUpdated: result.itemsSold };
+  return { type: null, message: retorno }; 
 };
 
 module.exports = {
   insertSales,
-  findSalesService,
+  findSaleByIdService,
+  findAllSalesService,
   deleteSalesService,
   updateSalesService,
 };

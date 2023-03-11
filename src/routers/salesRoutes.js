@@ -4,9 +4,9 @@ const { validateSalesParams } = require('../middlewares');
 
 const router = express.Router();
 
-router.get('/', salesController.findSalesController);
+router.get('/', salesController.findAllSalesController);
 
-router.get('/:id', salesController.findSalesController);
+router.get('/:id', salesController.findSaleByIdController);
 
 router.post('/', validateSalesParams, salesController.insertsSales);
 

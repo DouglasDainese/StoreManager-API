@@ -9,7 +9,8 @@ const {
 
 const {
   insertSales,
-  findSalesService,
+  findSaleByIdService,
+  findAllSalesService,
   deleteSalesService,
   updateSalesService,
 } = require('./salesServices');
@@ -19,7 +20,8 @@ module.exports = {
   servicesFindById,
   insertProduct,
   insertSales,
-  findSalesService,
+  findSaleByIdService,
+  findAllSalesService,
   updateProductService,
   deleteProductService,
   deleteSalesService,
